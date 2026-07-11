@@ -24,10 +24,10 @@ class StoreCompteRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'num_phone' => 'required|min:10|max:10|unique',
+            'num_phone' => 'required|min:10|max:10|unique:users,num_phone',
             'firtname' => 'nullable',
             'password' => 'required|min:6',
-            'password_confirmation' => 'required',
+            // 'password_confirmation' => 'required',
         ];
     }
 }
