@@ -1,59 +1,48 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Plateforme de Gestion de Centre de Formation dans un Pays
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Contexte
+Une plateforme en ligne pour qui a pour but :
+* Centraliser les centres de formation professionnelle d'un pays sur une seule plateforme.
+* Regrouper l'ensemble des apprenants déjà existants, avec un profil unique par personne.
+* Rendre chaque formation certifiante : un certificat numérique disponible en ligne pour tous les centres, et vérifiable publiquement.
+* À terme, organiser des tests standardisés pour tous les apprenants, dans des salles dédiées, à la manière d'un examen national voire international.
 
-## About Laravel
+## Technologies
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ 1. Backend
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    - **API :** Laravel 12
+    - **Authentification :** Laravel Sanctum
+    - **ORM :** Eloquent
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+        > On a opte pour Laravel grace a son ecosysteme tres vaste. Laravel nous offre deja plusieurs outils pret a utiliser comme ce systeme d'Authentification ***Laravel Sanctum*** et d'ORM ***Eloquent***
 
-## Learning Laravel
+ 2. Base des Donnees
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+    - **SGBD :** SQLite (Developpement) | PostgreSQL (Production)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+        > Pour faciliter le developpement, on utilise SQLite comme SGBD mais au final se sera PostgreSQL. Vu que les 2 SGBD sont basees sur SQL et qu'on utilise l'ORM Eloquent de Laravel, la migration de SQLite vers PostgreSQL ne sera pas difficile.
+        
+ 3. Frontent
 
-## Laravel Sponsors
+## Modelisation des Donnees
+ 
+   [Representation graphique simplifiee de la structure des donnees](https://drawsql.app/teams/jeanbrillant/diagrams/plateforme-formation)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   **Petite Explications :**
+   - Dans la table Role, type peut avoir les valeurs suivantes : Apprenant, Formateur, Admin, Super-Admin
+   - Dans la table Centre, statut peut avoir les valeurs suivantes : En_attente, Valide, Rejete 
 
-### Premium Partners
+## Regles des Gestions
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   - Un utilisateur a un compte
+   - La plateforme a un Super-Utilisateur
+   - Un utilisateur peut avoir plusieurs roles : Admin (Admin d'un Centre de Formation), Apprenant, Formateur
+   - Un utilisateur peut creer un ou plusieurs Centre de Formation
+   - Le Super-Utilisateur peut valider ou non la creation d'un nouvel Centre de Formation
+   - Lors de la validation de la creation d'un nouvel Centre de Formation, l'utilisateur qui a demande sa creation devient automatiquement son Admin
+   - L'Admin d'un Centre de Formation peut ajouter d'autre utilisateur comme Admin
+   - Les Admins cree les formations dans un Centre de Formation
+   - Une formation est liee a un seul Centre de Formation
+   - Chaque utilisateur peut s'inscrire a une ou plussieurs formations
+   - Un Admin peut assigner un ou plusieurs Formateur a une formation
