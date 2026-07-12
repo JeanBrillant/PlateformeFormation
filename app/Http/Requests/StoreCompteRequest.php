@@ -28,6 +28,8 @@ class StoreCompteRequest extends FormRequest
             'firtname' => 'nullable',
             'password' => 'required|min:6',
             // 'password_confirmation' => 'required',
+            'roles' => 'required|array|min:1',
+            'roles.*' => 'in:apprenant,formateur',
         ];
     }
 }

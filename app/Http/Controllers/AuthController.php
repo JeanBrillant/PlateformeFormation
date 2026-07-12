@@ -16,7 +16,14 @@ class AuthController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
+        $roles = $validated['roles'];
+        unset($validated['roles']);
+
         $user = User::create($validated);
+
+        foreach ($roles as $role){
+            $user->roles()->create(['type' => $role]);
+        }
 
         return new CompteResource($user);
     }
