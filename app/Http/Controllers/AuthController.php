@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreCompteRequest;
 use App\Http\Resources\CompteCollection;
 use App\Http\Resources\CompteResource;
@@ -26,6 +27,25 @@ class AuthController extends Controller
         }
 
         return new CompteResource($user);
+    }
+
+    public function login(LoginRequest $request){
+        $validated = $request->validated();
+
+        $user = User::where('num_phone', $validated['num_phone'])->first();
+
+        if (!$user || !Hash::check($validated['password'], $user->password)){
+            return response()->json([
+                'message' => 'Verifiez vos identifiants',
+            ], 401);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'data' => $user->load('roles'),
+            'token' => $token,
+        ]);
     }
 
     public function getAllUsers(Request $request){
