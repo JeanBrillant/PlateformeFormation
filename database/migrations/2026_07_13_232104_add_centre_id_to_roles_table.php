@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('roles', function (Blueprint $table) {
+            $table->foreignId('centre_id')->nullable()->after('type')->constrained()->nullOnDelete();
+        });
+
+        Schema::table('roles', function (Blueprint $table) {
+            $table->dropUnique(['user_id', 'type']);
+            $table->unique(['user_id', 'type', 'centre_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('roles', function (Blueprint $table) {
+            $table->dropUnique(['user_id', 'type', 'centre_id']);
+            $table->dropForeign(['centre_id']);
+            $table->dropColumn('centre_id');
+            $table->unique(['user_id', 'type']);
+        });
+    }
+};
