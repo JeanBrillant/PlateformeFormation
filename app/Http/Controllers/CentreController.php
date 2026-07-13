@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCentreRequest;
+use App\Http\Resources\CentreResource;
 use App\Models\Centre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,8 @@ class CentreController extends Controller
 
         $validated['cree_par_id'] = Auth::user()->id;
 
-        $centre = Centre::create($validated);
+        $centre = Centre::create($validated)->fresh();
 
-        return response()->json([
-            'data' => $centre,
-            'message' => 'La creation du centre est reussite'
-        ], 201);
+        return new CentreResource($centre);
     }
 }
