@@ -12,4 +12,8 @@ class Role extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    
+    public function centre(){
+        return $this->belongsTo(Centre::class);
+    }
 }

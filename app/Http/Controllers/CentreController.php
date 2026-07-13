@@ -32,12 +32,15 @@ class CentreController extends Controller
             'date_validation' => now(),
         ]);
 
-        $centre->creePar->roles()->create(['type' => 'admin']);
+        $centre->creePar->roles()->create([
+            'type' => 'admin',
+            'centre_id' => $centre->id
+        ]);
 
         return new CentreResource($centre);
     }
 
-//     public function show(){
-//         return new CentreResource(Centre::find(2));
-//     }
-// }
+    // public function show(){
+    //     return new CentreResource(Centre::find(2));
+    // }
+}
