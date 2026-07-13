@@ -19,6 +19,8 @@ class CentreResource extends JsonResource
             'nom_centre' => $this->nom_centre,
             'ville_centre' => $this->ville_centre,
             'quartier_centre' => $this->quartier_centre,
+            'latitude' => $this->latitude?? 0,
+            'longitude' => $this->longitude?? 0,
             'statut' => $this->statut,
         ];
     }
