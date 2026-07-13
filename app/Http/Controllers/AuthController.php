@@ -43,7 +43,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'data' => $user->load('roles'),
+            'data' => new CompteResource($user->load('roles')),
             'token' => $token,
         ]);
     }

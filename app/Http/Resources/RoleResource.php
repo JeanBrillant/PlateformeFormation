@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompteResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,7 @@ class CompteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'num_phone' => $this->num_phone,
-            'name' => $this->name,
-            'firstname' => $this->firstname,
-            'email' => $this->email,
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
+            'type' => $this->type
         ];
     }
 }
