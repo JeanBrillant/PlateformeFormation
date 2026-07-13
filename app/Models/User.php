@@ -51,4 +51,11 @@ class User extends Authenticatable
     public function hasRole(string $type):bool{
         return $this->roles()->where('type', $type)->exists();
     }
+
+    public function isAdminOf(int $centreId): bool{
+        return $this->roles()
+            ->where('type', 'admin')
+            ->where('centre_id', $centreId)
+            ->exists();
+    }
 }
