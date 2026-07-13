@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('quartier_centre')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->enum('status', ['en_attente', 'valide', 'rejete'])->default('en_attente');
+            $table->enum('statut', ['en_attente', 'valide', 'rejete'])->default('en_attente');
             $table->foreignId('cree_par_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('valide_par_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->timestamp('date_validation')->nullable();
