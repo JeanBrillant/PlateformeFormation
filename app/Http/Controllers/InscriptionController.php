@@ -14,28 +14,12 @@ class InscriptionController extends Controller
     public function store(StoreInscriptionRequest $request){
         $validated = $request->validated();
         $user = Auth::user();
-        $formation = Formation::find($validated['formation_id']);
+        $formation = Formation::findOrFail($validated['formation_id']);
 
-        // Verification que l'utilisateur a le role "apprenant"
-        if (!$user->hasRole('apprenant')){
-            return response()->json([
-                'message' => 'Seul un apprenant peut s\'inscrire aux formations'
-            ], 403);
-        }
+        $result = (new \App\Policies\InscriptionPolicy)->create($user, $formation);
 
-        // Verification que l'utilisateur n'est pas deja inscit
-        $dejaInscrit = Inscription::where('user_id', $user->id)->where('formation_id', $validated['formation_id'])->exists();
-
-        if($dejaInscrit){
-            return response()->json([
-                'message' => 'Vous êtes déjà inscrit à cette formation'
-            ], 409);
-        }
-
-        if ($user->isAdminOf($formation->centre_id)) {
-            return response()->json([
-                'message' => 'Un admin ne peut pas s\'inscrire à une formation de son propre centre'
-            ], 403);
+        if ($result !== true) {
+            return response()->json(['message' => $result], 403);
         }
 
         $inscription = Inscription::create([
