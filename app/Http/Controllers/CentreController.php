@@ -23,7 +23,7 @@ class CentreController extends Controller
 
     public function validate(Centre $centre, Request $request){
         if(!Auth::user()->hasRole('super_admin')){
-            return response()->json(['message' => 'Non autorisé'], 403);
+            return response()->json(['message' => 'Non autorisé. Vous n\'etes pas un Super Admin'], 403);
         }
 
         $centre->update([

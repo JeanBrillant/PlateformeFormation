@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->string('description')->nullable();
-            $table->foreignId('cente_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('centre_id')->constrained()->cascadeOnDelete();
             $table->date('date_debut');
             $table->date('date_fin');
             $table->time('heure_debut')->nullable();
