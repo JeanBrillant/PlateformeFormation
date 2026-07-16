@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInscriptionRequest;
+use App\Http\Resources\InscriptionResource;
 use App\Models\Formation;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
@@ -35,17 +36,13 @@ class InscriptionController extends Controller
             'formation_id' => $validated['formation_id'],
         ]);
 
-        return response()->json([
-            'data' => $inscription,
-        ], 409);
+        return new InscriptionResource($inscription);
     }
 
     public function index(Formation $formation)
     {
         $inscriptions = Inscription::where('formation_id', $formation->id)->get();
 
-        return response()->json([
-            'data' => $inscriptions,
-        ], 409);
+        return InscriptionResource::collection($inscriptions);
     }
 }
