@@ -41,7 +41,7 @@ class InscriptionController extends Controller
 
     public function index(Formation $formation)
     {
-        $inscriptions = Inscription::where('formation_id', $formation->id)->get();
+        $inscriptions = Inscription::where('formation_id', $formation->id)->with('user:id,name,num_phone')->get();
 
         return InscriptionResource::collection($inscriptions);
     }

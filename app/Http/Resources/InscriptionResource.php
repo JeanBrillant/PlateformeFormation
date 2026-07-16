@@ -19,6 +19,11 @@ class InscriptionResource extends JsonResource
             'user_id' => $this->user_id,
             'formation_id' => $this->formation_id,
             'date_inscription' => $this->date_inscription,
+            'user' => [
+                'id' => $this->user->id,
+                'nom' => $this->user->name,
+                'phone' => $this->user->num_phone,
+            ]
         ];
     }
 }
