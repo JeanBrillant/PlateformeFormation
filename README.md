@@ -46,3 +46,8 @@ Une plateforme en ligne pour qui a pour but :
    - Une formation est liee a un seul Centre de Formation
    - Chaque utilisateur peut s'inscrire a une ou plussieurs formations
    - Un Admin peut assigner un ou plusieurs Formateur a une formation
+
+
+## Limites Connues
+
+  - Une formation hérite implicitement de la localisation de son centre, pas de lieu distinct géré pour l'instant.

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Centre extends Model
 {
@@ -17,5 +18,9 @@ class Centre extends Model
     // Recuperation du SuperAdmin
     public function validePar(): BelongsTo{
         return $this->belongsTo(User::class, 'valide_par_id');
+    }
+
+    public function formations():HasMany{
+        return $this->hasMany(Formation::class);
     }
 }
