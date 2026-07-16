@@ -46,6 +46,8 @@ Une plateforme en ligne pour qui a pour but :
    - Une formation est liee a un seul Centre de Formation
    - Chaque utilisateur peut s'inscrire a une ou plussieurs formations
    - Un Admin peut assigner un ou plusieurs Formateur a une formation
+   - Une inscription correspond à une seule place dans une formation (un utilisateur = une place). La gestion d'un nombre de places multiples par inscription (ex: un admin inscrivant plusieurs apprenants en une fois) n'est pas gérée pour l'instant.
+   - Un Admin ne peut pas s'inscrire en tant qu'apprenant à une formation de son propre Centre de Formation (évite un conflit d'intérêt).
 
 
 ## Installation
@@ -77,6 +79,8 @@ Un compte Super-Admin est créé automatiquement via le seeder :
 | PATCH | /api/centres/{centre}/valider | Oui (Super-Admin) | Valider un centre, l'admin devient automatique |
 | POST | /api/formations | Oui (Admin du centre) | Créer une formation |
 | GET | /api/formations | Oui | Lister les formations |
+| POST | /api/formaions/{formation}/inscription | Oui | Inscription a une formation
+| GET | /api/formaions/{formation}/inscriptions | Oui | Lister les inscrits a une formation
 
 
 ## Hypothèses prises sur les zones ambiguës
@@ -108,3 +112,5 @@ Je n'ai pas laissé l'IA décider seule des règles métier : chaque hypothèse 
 - Le mécanisme de parrainage (bonus) n'a pas été traité, faute de temps.
 - Pas d'interface graphique (frontend) pour le moment — l'API a été priorisée.
 - Pas de tests automatisés (unitaires/fonctionnels), faute de temps.
+- Le système de Policy est simplifié (retour direct de messages d'erreur) plutôt que d'utiliser le système complet de Gates/Policies natif de Laravel, par manque de temps.
+- Une inscription = une place ; pas de gestion de quota de places multiples par inscription pour l'instant (piste d'évolution future).

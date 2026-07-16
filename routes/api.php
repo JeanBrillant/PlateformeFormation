@@ -14,8 +14,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/formations', [FormationController::class, 'store']);
     Route::get('/formations', [FormationController::class, 'index']);
     
-    Route::post('/inscriptions', [InscriptionController::class, 'store']);
-    Route::get('/inscriptions/{formation}', [InscriptionController::class, 'index']);
+    Route::post('/formations/{formation}/inscription', [InscriptionController::class, 'store']);
+    Route::get('/formations/{formation}/inscriptions', [InscriptionController::class, 'index']);
 
     // Route::get('/centres', [CentreController::class, 'show']);
 });
