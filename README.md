@@ -50,16 +50,15 @@ Une plateforme en ligne pour qui a pour but :
 
 ## Installation
 
-\`\`\`bash
-git clone git@github.com:JeanBrillant/PlateformeFormation.git
-cd plateforme-formation
-composer install
-cp .env.example .env
-php artisan key:generate
-touch database/database.sqlite
-php artisan migrate --seed
-php artisan serve
-\`\`\`
+***Commandes Bash : ***
+ - git clone https://github.com/JeanBrillant/PlateformeFormation.git
+ - cd plateforme-formation
+ - composer install
+ - cp .env.example .env
+ - php artisan key:generate
+ - touch database/database.sqlite
+ - php artisan migrate --seed
+ - php artisan serve
 
 L'API est accessible sur `http://127.0.0.1:8000/api`.
 

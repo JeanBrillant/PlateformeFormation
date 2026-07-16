@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -57,5 +58,9 @@ class User extends Authenticatable
             ->where('type', 'admin')
             ->where('centre_id', $centreId)
             ->exists();
+    }
+
+    public function inscriptions():HasMany{
+        return $this->hasMany(Inscription::class);
     }
 }
