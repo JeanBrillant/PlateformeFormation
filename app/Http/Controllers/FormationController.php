@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFormationRequest;
+use App\Http\Resources\FormationResource;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,10 @@ class FormationController extends Controller
 
         $formation = Formation::create($validated);
 
-        return response()->json([
-            'data' => $formation,
-        ], 201);
+        return new FormationResource($formation);
     }
 
     public function index(){
-        return Formation::all();
+        return FormationResource::collection(Formation::all());
     }
 }
